@@ -1,0 +1,919 @@
+"use strict";
+
+import axios from "axios";
+import * as React from "react";
+import Select from "react-select";
+import * as numeral from "numeral";
+import format from "date-fns/format";
+import {Link} from "react-router-dom";
+import Form from "react-bootstrap/es/Form";
+import Modal from "react-bootstrap/es/Modal";
+import Button from "react-bootstrap/es/Button";
+import HelpBlock from "react-bootstrap/es/HelpBlock";
+import FormGroup from "react-bootstrap/es/FormGroup";
+import FormControl from "react-bootstrap/es/FormControl";
+import ControlLabel from "react-bootstrap/es/ControlLabel";
+
+import {
+    getBalance,
+    isBlocked,
+    deleteUser,
+    addBalance,
+    unblockUser,
+    blockUser,
+    getUserGroup,
+    editUserPassword
+} from "ajaxRequests/users";
+import MoreActions from "components/Common/MoreActions";
+import {showNotification} from "helpers/PageHelper";
+import Loader from "components/Common/Loading";
+import {IVALIDATION} from "services/interface";
+import Popup from "components/Common/Popup";
+import selector from "services/selector";
+import {connect} from "react-redux";
+
+const atLeastOneLowerCase: any = new RegExp("^(?=.*[a-z])");
+const atLeastOneUpperCase: any = new RegExp("^(?=.*[A-Z])");
+const atLeastOneNumeric: any = new RegExp("^(?=.*[0-9])");
+const atLeastOneSpecialCharacter: any = new RegExp("^(?=.*[!@#$%^&*])");
+const eightCharactersOrLonger: any = new RegExp("^(?=.{8,})");
+
+interface IUserInformationState {
+    isLoading: boolean,
+    userBalance: any,
+    userGroupList: any[],
+    userGroup: string,
+    popup: any,
+    validation: {
+        popup: {
+            balance: {
+                amount: IVALIDATION,
+                currency: IVALIDATION,
+            },
+            newPassword: {
+                value: any,
+                atLeastOneLowerCase: {
+                    message: string
+                },
+                atLeastOneUpperCase: {
+                    message: string
+                },
+                atLeastOneNumeric: {
+                    message: string
+                },
+                eightCharactersOrLonger: {
+                    message: string
+                },
+                atLeastOneSpecialCharacter: {
+                    message: string
+                }
+            },
+            currentPassword: {
+                value: any,
+                message: string
+            }
+            confirmPassword: {
+                value: any,
+                message: string
+            }
+        },
+    },
+}
+
+interface IUserInformationProps {
+    user: any,
+    history: any,
+    currencies: any,
+    userProfile: any,
+}
+
+class User extends React.Component<IUserInformationProps, IUserInformationState> {
+
+    isComponentMounted: boolean = true;
+
+    constructor(props: IUserInformationProps) {
+        super(props);
+        this.state = {
+            isLoading: true,
+            userBalance: null,
+            userGroupList: [],
+            userGroup: "",
+            popup: {
+                addBalance: {
+                    isShown: false,
+                    balance: {
+                        amount: "",
+                        currency: "",
+                    },
+                    isProcessing: false,
+                },
+                editPassword: {
+                    isShown: false,
+                    currentPassword: "",
+                    newPassword: "",
+                    confirmPassword: "",
+                    isProcessing: false,
+                },
+                blockUser: {
+                    isShown: false,
+                    isBlocked: false,
+                },
+                deleteUser: {
+                    isShown: false,
+                }
+
+            },
+            validation: {
+                popup: {
+                    balance: {
+                        amount: {
+                            value: null,
+                            message: "",
+                        },
+                        currency: {
+                            value: null,
+                            message: "",
+                        },
+                    },
+                    newPassword: {
+                        value: null,
+                        atLeastOneLowerCase: {
+                            message: ""
+                        },
+                        atLeastOneUpperCase: {
+                            message: ""
+                        },
+                        atLeastOneNumeric: {
+                            message: ""
+                        },
+                        eightCharactersOrLonger: {
+                            message: ""
+                        },
+                        atLeastOneSpecialCharacter: {
+                            message: ""
+                        }
+                    },
+                    currentPassword: {
+                        value: null,
+                        message: "",
+                    },
+                    confirmPassword: {
+                        value: null,
+                        message: "",
+                    },
+                },
+            },
+        }
+    }
+
+    componentDidMount(): void {
+        this.initRequests();
+    }
+
+    initRequests = (): void => {
+        const {user} = this.props;
+        const newState: IUserInformationState = {...this.state};
+        axios.all([
+            getBalance(user.username),
+            isBlocked(user.username),
+            getUserGroup(user.user_id, 0, 1000)
+        ]).then(axios.spread((balance, isBlocked, userGroup) => {
+
+            if (!balance.data.err) {
+                newState.userBalance = balance.data.result;
+            } else {
+                showNotification("error", {
+                    title: "You've got an error!",
+                    description: "Cannot get user balance",
+                    timer: 3000,
+                    hideProgress: true
+                });
+            }
+
+            if (!isBlocked.data.err) {
+                newState.popup.blockUser.isBlocked = isBlocked.data.result.isLocked;
+            } else {
+                showNotification("error", {
+                    title: "You've got an error!",
+                    description: "Cannot get user information",
+                    timer: 3000,
+                    hideProgress: true
+                });
+            }
+
+            if (!userGroup.data.err) {
+                newState.userGroupList = userGroup.data.result && userGroup.data.result.records || [];
+                newState.userGroup = newState.userGroupList.map(item => item.name).join(", ");
+
+            } else {
+                showNotification("error", {
+                    title: "You've got an error!",
+                    description: "Cannot get user information",
+                    timer: 3000,
+                    hideProgress: true
+                });
+            }
+            newState.isLoading = false;
+            if (this.isComponentMounted) {
+                this.setState(newState);
+            }
+
+        })).catch((e) => {
+            console.log(e);
+            if (this.isComponentMounted) {
+                if (newState.isLoading) {
+                    newState.isLoading = false;
+                }
+                this.setState(newState);
+                showNotification("error", {
+                    title: "You've got an error!",
+                    description: "Cannot get user information",
+                    timer: 3000
+                });
+            }
+        });
+    };
+
+    handleUserBlock = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        const {popup} = this.state;
+        const {user} = this.props;
+        const newState: any = {...this.state};
+
+        newState.popup.blockUser.isShown = false;
+        this.setState(newState);
+
+        const toastId: number = showNotification("info", {
+            title: "Processing...",
+            description: "",
+        });
+
+        if (popup.blockUser.isBlocked) {
+            unblockUser(user.username).then(response => {
+                if (!response.data.err) {
+                    newState.popup.blockUser.isBlocked = response.data.result.isLocked;
+                } else {
+                    showNotification("error", {
+                        title: "You've got an error!",
+                        description: "Error occurred while unblocking user for unknown reason",
+                        id: toastId
+                    });
+                }
+                if (!newState.popup.blockUser.isBlocked) {
+                    showNotification("success", {
+                        title: "Success!",
+                        description: "User is unblocked",
+                        id: toastId
+                    });
+                } else {
+                    showNotification("error", {
+                        title: "You've got an error!",
+                        description: "Error occurred while unblocking user for unknown reason",
+                        id: toastId
+                    });
+                }
+                if (this.isComponentMounted) {
+                    this.setState(newState);
+                }
+            }).catch(err => console.log(err));
+        } else {
+            blockUser(user.username).then(response => {
+                if (!response.data.err) {
+                    newState.popup.blockUser.isBlocked = response.data.result.isLocked;
+                } else {
+                    showNotification("error", {
+                        title: "You've got an error!",
+                        description: "Error occurred for unknown reason",
+                        id: toastId
+                    });
+                }
+                if (newState.popup.blockUser.isBlocked) {
+                    showNotification("success", {
+                        title: "Success!",
+                        description: "User is blocked",
+                        id: toastId
+                    });
+                } else {
+                    showNotification("error", {
+                        title: "You've got an error!",
+                        description: "Error occurred for unknown reason",
+                        id: toastId
+                    });
+                }
+                if (this.isComponentMounted) {
+                    this.setState(newState);
+                }
+            }).catch(err => console.log(err));
+        }
+    };
+
+    handleUserDelete = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        const {user, history} = this.props;
+        const newState: any = {...this.state};
+
+        newState.popup.deleteUser.isShown = false;
+        this.setState(newState);
+
+        const toastId: number = showNotification("info", {
+            title: "Processing...",
+            description: "",
+        });
+
+        (async (): Promise<any> => {
+
+            const response: any = await deleteUser(user.user_id);
+
+            if (response.data.err || !response.data.result.deleted) {
+                throw new Error(response.data);
+            }
+
+            history.push("/users");
+            showNotification("success", {
+                title: "Success!",
+                description: "User was deleted",
+                id: toastId
+            });
+
+        })().catch(e => {
+            console.log(e);
+            if (this.isComponentMounted) {
+                this.setState(newState);
+                showNotification("error", {
+                    title: "Error",
+                    description: "Cannot delete user",
+                    id: toastId
+                });
+            }
+        });
+    };
+
+    handleModalOpen = (e: React.MouseEvent<HTMLAnchorElement>): void => {
+        const name: string = e.currentTarget.getAttribute("data-name");
+        const newState: any = {...this.state};
+        newState.popup[name].isShown = true;
+        this.setState(newState);
+    };
+
+    handleModalClose = (): void => {
+        const newState: any = {...this.state};
+        for (const item in newState.popup) {
+            if (newState.popup.hasOwnProperty(item)) {
+                newState.popup[item].isShown = false;
+            }
+        }
+        this.setState(newState);
+    };
+
+    handleAmountChange = ({currentTarget: {value, name}}: React.ChangeEvent<HTMLInputElement>) => {
+        const newState: any = {...this.state};
+        newState.popup.addBalance.balance[name] = value;
+        newState.validation.popup.balance[name].value = value === "" ? "error" : "success";
+        newState.validation.popup.balance[name].message = value === "" ? "Must be not empty" : "";
+        this.setState(newState);
+    };
+
+    handleCurrencyChange = (value: any) => {
+        const newState: any = {...this.state};
+        newState.popup.addBalance.balance.currency = value;
+        newState.validation.popup.balance.currency.value = value === "" ? "error" : "success";
+        newState.validation.popup.balance.currency.message = value === "" ? "Must be not empty" : "";
+        this.setState(newState);
+    };
+
+    handleCurrentPasswordChange = (e: any) => {
+        const newState: any = {...this.state};
+
+        newState.popup.editPassword.currentPassword = e.target.value;
+        if (newState.popup.editPassword.currentPassword.length > 0) {
+            newState.validation.popup.currentPassword.value = "success"
+            newState.validation.popup.currentPassword.message = ""
+        } else {
+            newState.validation.popup.currentPassword.value = "error"
+            newState.validation.popup.currentPassword.message = "Current password can not be empty"
+        }
+        this.setState(newState);
+    };
+
+    handleNewPasswordChange = (e: any) => {
+        const newState: any = {...this.state};
+        const value: string = e.target.value
+        let newPasswordVal: string = "success"
+        newState.popup.editPassword.newPassword = e.target.value;
+
+        newState.validation.popup.newPassword.atLeastOneLowerCase.message = "";
+        newState.validation.popup.newPassword.atLeastOneUpperCase.message = "";
+        newState.validation.popup.newPassword.atLeastOneNumeric.message = "";
+        newState.validation.popup.newPassword.atLeastOneSpecialCharacter.message = "";
+        newState.validation.popup.newPassword.eightCharactersOrLonger.message = "";
+
+        if (!atLeastOneLowerCase.test(value)) {
+            newState.validation.popup.newPassword.atLeastOneLowerCase.message = "Password need to have at least one lowercase."
+            newPasswordVal = "error"
+        }
+
+        if (!atLeastOneUpperCase.test(value)) {
+            newState.validation.popup.newPassword.atLeastOneUpperCase.message = "Password need to have at least one uppercase."
+            newPasswordVal = "error"
+        }
+
+        if (!atLeastOneNumeric.test(value)) {
+            newState.validation.popup.newPassword.atLeastOneNumeric.message = "Password need to have at least one numeric character."
+            newPasswordVal = "error"
+        }
+
+        if (!atLeastOneSpecialCharacter.test(value)) {
+            newState.validation.popup.newPassword.atLeastOneSpecialCharacter.message = "Password need to have at least one special character."
+            newPasswordVal = "error"
+        }
+
+        if (!eightCharactersOrLonger.test(value)) {
+            newState.validation.popup.newPassword.eightCharactersOrLonger.message = "Password need to have eight characters or longer."
+            newPasswordVal = "error"
+        }
+
+        newState.validation.popup.newPassword.value = newPasswordVal
+
+        newState.validation.popup.confirmPassword.value = newState.popup.editPassword.confirmPassword ? "success" : null
+        newState.validation.popup.confirmPassword.message = ""
+        if (value !== newState.popup.editPassword.confirmPassword) {
+            newState.validation.popup.confirmPassword.value = "error"
+            newState.validation.popup.confirmPassword.message = "Please confirm password!"
+        }
+        this.setState(newState);
+    };
+
+    handleConfirmPasswordChange = (e: any) => {
+        const newState: any = {...this.state};
+        const value: string = e.target.value;
+        newState.validation.popup.confirmPassword.value = value ? "success" : null
+        newState.validation.popup.confirmPassword.message = ""
+        newState.popup.editPassword.confirmPassword = value;
+        if (value !== newState.popup.editPassword.newPassword) {
+            newState.validation.popup.confirmPassword.value = "error"
+            newState.validation.popup.confirmPassword.message = "Please confirm password!"
+        }
+        this.setState(newState);
+    };
+
+    handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>): Promise<any> => {
+        e.preventDefault();
+        const {popup} = this.state;
+        const {user} = this.props;
+        const balance: any = {
+            amount: popup.addBalance.balance.amount,
+            currency: popup.addBalance.balance.currency.value,
+        };
+        const newState: IUserInformationState = {...this.state};
+
+        newState.popup.addBalance.isProcessing = true;
+        this.setState(newState);
+
+        const toastId: number = showNotification("info", {
+            title: "Processing...",
+            description: "",
+        });
+
+        const addBalanceRequest: any = await addBalance(user.username, balance);
+
+        if (!addBalanceRequest.data.err) {
+            showNotification("success", {
+                title: "Success!",
+                description: "Balance is successfully added",
+                id: toastId
+            });
+            if (addBalanceRequest.data.result) {
+                const userBalance: any = await getBalance(user.username);
+
+                if (!userBalance.data.err) {
+                    newState.userBalance = userBalance.data.result;
+                } else {
+                    showNotification("error", {
+                        title: "You've got an error!",
+                        description: "Error whilst getting user balance",
+                        id: toastId
+                    });
+                }
+
+            }
+        } else {
+            showNotification("error", {
+                title: "You've got an error!",
+                description: "Error occurred when adding balance for unknown reason",
+                id: toastId
+            });
+        }
+        for (const item in newState.popup.balance) {
+            if (newState.popup.addBalance.balance.hasOwnProperty(item)) {
+                newState.popup.addBalance.balance[item] = "";
+            }
+        }
+        for (const item in newState.validation.popup.balance) {
+            if (newState.validation.popup.balance.hasOwnProperty(item)) {
+                newState.validation.popup.balance[item] = {
+                    value: null,
+                    message: "",
+                };
+            }
+        }
+        newState.popup.addBalance.isProcessing = false;
+        newState.popup.addBalance.isShown = false;
+        if (this.isComponentMounted) {
+            this.setState(newState);
+        }
+    };
+
+    handleEditPassword = async (e: React.MouseEvent<HTMLButtonElement>): Promise<any> => {
+        e.preventDefault();
+        const {popup} = this.state;
+        const {user} = this.props;
+        const editPasswordObj: any = {
+            currentPassword: popup.editPassword.currentPassword,
+            newPassword: popup.editPassword.newPassword,
+        };
+        const newState: IUserInformationState = {...this.state};
+
+        newState.popup.editPassword.isProcessing = true;
+        this.setState(newState);
+
+        const toastId: number = showNotification("info", {
+            title: "Processing...",
+            description: "",
+        });
+
+        const editUserPasswordRequest: any = await editUserPassword(user.user_id, editPasswordObj);
+
+        console.log("editUserPasswordRequest -> ", editUserPasswordRequest)
+
+        if (!editUserPasswordRequest.data.err) {
+            showNotification("success", {
+                title: "Success!",
+                description: "User's password successfully edited",
+                id: toastId
+            });
+            newState.popup.editPassword.isShown = false;
+
+            for (const item in newState.popup.editPassword) {
+                if (newState.popup.editPassword.hasOwnProperty(item)) {
+                    newState.popup.editPassword[item] = "";
+                }
+            }
+
+            newState.validation.popup.currentPassword.value = null
+            newState.validation.popup.newPassword.value = null
+            newState.validation.popup.confirmPassword.value = null
+        } else {
+            showNotification("error", {
+                title: "You've got an error!",
+                description: editUserPasswordRequest.data.message,
+                id: toastId
+            });
+
+        }
+        newState.popup.editPassword.isProcessing = false;
+
+        if (this.isComponentMounted) {
+            this.setState(newState);
+        }
+    };
+
+    render(): JSX.Element {
+        const {user, currencies, userProfile} = this.props;
+        const {popup, userBalance, isLoading, validation, userGroup} = this.state;
+        let popupMessage: any = {};
+        if (popup.blockUser.isShown || popup.deleteUser.isShown) {
+            popupMessage = {
+                title: popup.blockUser.isShown ? "Block User" : "Delete User",
+                apply: "Yes",
+                cancel: "No",
+                info: "Are you sure?"
+            }
+        }
+
+        let addBalanceState: boolean = false;
+
+        if (popup.addBalance.isShown) {
+            addBalanceState = Object.keys(popup.addBalance.balance).every(item => popup.addBalance.balance[item] !== "");
+        }
+        const confirmed: boolean = validation.popup.currentPassword.value === "success" &&
+            validation.popup.newPassword.value === "success" &&
+            validation.popup.confirmPassword.value === "success";
+
+        return (
+            <div className="bg-white box-shadow r-3x m-b-md">
+                <div className="content-wrapper">
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <span className="text-xsl padder-t-3">User Details</span>
+                            </div>
+                            <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
+                                <div className="inline m-r-sm">
+                                    <Link className="text-info inline" to="/users">
+                                        <Button className="btn btn-default btn-addon m-r-sm"><i className="fa fa-arrow-left"/>Go back</Button>
+                                    </Link>
+                                </div>
+                                {!userProfile.readonly && <div className="inline">
+                                    <MoreActions>
+                                        <li>
+                                            <a
+                                                data-name="blockUser"
+                                                onClick={this.handleModalOpen}
+                                            >
+                                                {popup.blockUser.isBlocked ? "Unblock user" : "Block user"}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                data-name="deleteUser"
+                                                onClick={this.handleModalOpen}
+                                            >Delete user
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                data-name="addBalance"
+                                                onClick={this.handleModalOpen}
+                                            > Add balance
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                data-name="editPassword"
+                                                onClick={this.handleModalOpen}
+                                            > Edit Password
+                                            </a>
+                                        </li>
+                                    </MoreActions>
+                                </div>}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="content-wrapper network-details">
+                    {
+                        isLoading ? <Loader/> :
+                            <div className="container-fluid">
+                                <div className="row">
+                                    <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <div className="container-fluid">
+                                            <div className="row m-b-md">
+                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <span className="block font-bold text-base text-uppercase">User Information</span>
+                                                </div>
+                                            </div>
+                                            <div className="row m-b-md">
+                                                <div className="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                                    <span className="block font-semi-bold">Email</span>
+                                                </div>
+                                                <div className="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                                    <span className="block">{user.email ? user.email : user.username}</span>
+                                                </div>
+                                            </div>
+                                            <div className="row m-b-md">
+                                                <div className="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                                    <span className="block font-semi-bold">Full Name</span>
+                                                </div>
+                                                <div className="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                                    <span className="block">{`${user.first_name} ${user.last_name}`}</span>
+                                                </div>
+                                            </div>
+                                            <div className="row m-b-md">
+                                                <div className="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                                    <span className="block font-semi-bold">Country</span>
+                                                </div>
+                                                <div className="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                                    <span className="block">{user.country}</span>
+                                                </div>
+                                            </div>
+                                            <div className="row m-b-md">
+                                                <div className="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                                    <span className="block font-semi-bold">Created At</span>
+                                                </div>
+                                                <div className="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                                    <span className="block">{format(user.created_at, "DD MMM YYYY hh:mm A")}</span>
+                                                </div>
+                                            </div>
+                                            <div className="row m-b-md">
+                                                <div className="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                                    <span className="block font-semi-bold">User Groups</span>
+                                                </div>
+                                                <div className="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                                    <span className="block">{userGroup || "Default"}</span>
+                                                </div>
+                                            </div>
+                                            <div className="row m-b-md">
+                                                <div className="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                                    <span className="block font-semi-bold">Channel</span>
+                                                </div>
+                                                <div className="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                                    <span className="block">
+                                                        {user.channels.map((chaannel, elIndex) => {
+                                                            if (elIndex === user.channels.length - 1) {
+                                                                return `${chaannel.name || ""}`
+                                                            } else {
+                                                                return `${chaannel.name}, `
+                                                            }
+                                                        })}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <div className="container-fluid no-padder">
+                                            <div className="row m-b-md">
+                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <span className="block font-bold text-base text-uppercase">Additional Information</span>
+                                                </div>
+                                            </div>
+                                            <div className="row m-b-md">
+                                                <div className="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                                    <span className="block font-semi-bold">Verification Code</span>
+                                                </div>
+                                                <div className="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                                    <span className="block">{user.verification ? user.verification.verifyCode : ""}</span>
+                                                </div>
+                                            </div>
+                                            <div className="row m-b-md">
+                                                <div className="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                                    <span className="block font-semi-bold">Attempt Date</span>
+                                                </div>
+                                                <div className="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                                    <span className="block">{user.verification ? format(user.verification.date, "DD MMM YYYY hh:mm A") : ""}</span>
+                                                </div>
+                                            </div>
+                                            <div className="row m-b-md">
+                                                <div className="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                                    <span className="block font-semi-bold">Contacts Count</span>
+                                                </div>
+                                                <div className="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                                    <span className="block">{user.contactsCount}</span>
+                                                </div>
+                                            </div>
+                                            <div className="row m-b-md">
+                                                <div className="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                                    <span className="block font-semi-bold">User Balance</span>
+                                                </div>
+                                                <div className="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                                        <span className="block">{userBalance ? `${numeral(userBalance.balance).format("0.00")} ${userBalance.currencyCode}` : ""}
+                                                        </span>
+                                                </div>
+                                            </div>
+                                            <div className="row m-b-md">
+                                                <div className="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                                    <span className="block font-semi-bold">Blocked status</span>
+                                                </div>
+                                                <div className="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                                        <span className="block">
+                                                             {popup.blockUser.isBlocked ? "Blocked" : ""}
+                                                        </span>
+                                                </div>
+                                            </div>
+                                            <div className="row m-b-md">
+                                                <div className="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                                    <span className="block font-semi-bold">Subscription status</span>
+                                                </div>
+                                                {
+                                                    user.subscriptionType &&
+                                                    <div className="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                                        <span className="block">
+                                                             {user.subscriptionType === "SUBSCRIPTION_PURCHASED"  ? "active" : "inactive"}
+                                                        </span>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div className="row m-b-md">
+                                                <div className="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                                    <span className="block font-semi-bold">Subscription date</span>
+                                                </div>
+                                                {
+                                                    user.subscriptionType &&
+                                                    <div className="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                                        <span className="block">
+                                                            {format(user.subscriptionStartDate, "DD/MM/YYYY")} - {format(user.subscriptionEndDate, "DD/MM/YYYY")}
+                                                        </span>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    }
+                </div>
+                <Modal show={popup.addBalance.isShown} onHide={this.handleModalClose} bsSize="sm">
+                    <Modal.Header closeButton={true}><span className="text-xlg">Add Balance</span></Modal.Header>
+                    <Modal.Body>
+                        <Form className="wrapper-md" action="/" onSubmit={this.handleSubmit}>
+                            <FormGroup validationState={validation.popup.balance.amount.value}>
+                                <ControlLabel htmlFor="amount">Amount</ControlLabel>
+                                <FormControl
+                                    name="amount"
+                                    pattern="[0-9.]+"
+                                    className="form-control"
+                                    onChange={this.handleAmountChange}
+                                    value={popup.addBalance.balance.amount}
+                                    id="amount"
+                                    placeholder="Amount"
+                                />
+                                <HelpBlock>{validation.popup.balance.amount.message}</HelpBlock>
+                            </FormGroup>
+                            <FormGroup validationState={validation.popup.balance.currency.value}>
+                                <ControlLabel htmlFor="currency">Currency</ControlLabel>
+                                <Select
+                                    isMulti={false}
+                                    id="currency"
+                                    closeMenuOnSelect={true}
+                                    onChange={this.handleCurrencyChange}
+                                    name="currency"
+                                    value={popup.addBalance.balance.currency}
+                                    options={currencies}
+                                    placeholder="Currency"
+                                />
+                                <HelpBlock>{validation.popup.balance.currency.message}</HelpBlock>
+                            </FormGroup>
+                            <Button
+                                type="submit"
+                                className="btn btn-info btn-block"
+                                disabled={!addBalanceState || popup.addBalance.isProcessing}
+                            >{popup.addBalance.isProcessing ? "Processing" : "Add balance"}
+                            </Button>
+                        </Form>
+                    </Modal.Body>
+                </Modal>
+                <Modal show={popup.editPassword.isShown} onHide={this.handleModalClose} bsSize="md">
+                    <Modal.Header closeButton={true}><span className="text-xlg">Edit Password</span></Modal.Header>
+                    <Modal.Body>
+                        <Form className="wrapper-md" action="/" onSubmit={this.handleEditPassword}>
+                            <FormGroup validationState={validation.popup.currentPassword.value}>
+                                <ControlLabel htmlFor="amount">Current Password</ControlLabel>
+                                <FormControl
+                                    name="currentPassword"
+                                    className="form-control"
+                                    type="password"
+                                    onChange={this.handleCurrentPasswordChange}
+                                    value={popup.editPassword.currentPassword}
+                                    id="currentPassword"
+                                    placeholder="Current Password"
+                                />
+                                <HelpBlock>{validation.popup.currentPassword.message}</HelpBlock>
+                            </FormGroup>
+                            <FormGroup validationState={validation.popup.newPassword.value}>
+                                <ControlLabel htmlFor="amount">New Password</ControlLabel>
+                                <FormControl
+                                    name="newPassword"
+                                    className="form-control"
+                                    type="password"
+                                    onChange={this.handleNewPasswordChange}
+                                    value={popup.editPassword.newPassword}
+                                    id="newPassword"
+                                    placeholder="Current Password"
+                                />
+                                <HelpBlock>{validation.popup.newPassword.atLeastOneLowerCase.message}</HelpBlock>
+                                <HelpBlock>{validation.popup.newPassword.atLeastOneUpperCase.message}</HelpBlock>
+                                <HelpBlock>{validation.popup.newPassword.atLeastOneNumeric.message}</HelpBlock>
+                                <HelpBlock>{validation.popup.newPassword.atLeastOneSpecialCharacter.message}</HelpBlock>
+                                <HelpBlock>{validation.popup.newPassword.eightCharactersOrLonger.message}</HelpBlock>
+                            </FormGroup>
+                            <FormGroup validationState={validation.popup.confirmPassword.value}>
+                                <ControlLabel htmlFor="amount">Confirm Password</ControlLabel>
+                                <FormControl
+                                    name="repeatPassword"
+                                    className="form-control"
+                                    type="password"
+                                    onChange={this.handleConfirmPasswordChange}
+                                    value={popup.editPassword.confirmPassword}
+                                    id="repeatPassword"
+                                    placeholder="Confirm Password"
+                                />
+                                <HelpBlock>{validation.popup.confirmPassword.message}</HelpBlock>
+                            </FormGroup>
+                            <Button
+                                type="submit"
+                                className="btn btn-info btn-block"
+                                disabled={popup.editPassword.isProcessing || !confirmed}
+                            >
+                                {popup.editPassword.isProcessing ? "Processing" : "Edit password"}
+                            </Button>
+                        </Form>
+                    </Modal.Body>
+                </Modal>
+                <Popup
+                    show={popup.blockUser.isShown}
+                    message={popupMessage}
+                    hideModal={this.handleModalClose}
+                    confirmAction={this.handleUserBlock}
+                />
+                <Popup
+                    show={popup.deleteUser.isShown}
+                    message={popupMessage}
+                    hideModal={this.handleModalClose}
+                    confirmAction={this.handleUserDelete}
+                />
+            </div>
+        )
+    }
+}
+
+export default User;

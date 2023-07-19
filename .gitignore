@@ -1,0 +1,12 @@
+node_modules/
+.idea
+dist/
+nohup.out
+.DS_Store
+package-lock.json
+!bower_components/**/dist/
+public/scripts
+public/js
+public/index.html
+public/assets
+

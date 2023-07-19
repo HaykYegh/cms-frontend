@@ -1,0 +1,211 @@
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    margin: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+}
+
+label {
+    font-weight: normal;
+}
+
+.badge,
+.label {
+    font-weight: bold;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.badge.bg-light,
+.label.bg-light {
+    text-shadow: none;
+}
+
+.badge.up {
+    position: relative;
+    top: -10px;
+    padding: 3px 6px;
+    margin-left: -10px;
+}
+
+.badge-sm {
+    padding: 2px 5px !important;
+    font-size: 85%;
+}
+
+.label-sm {
+    padding-top: 0;
+    padding-bottom: 1px;
+}
+
+.badge-white {
+    padding: 2px 6px;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.badge-empty {
+    color: inherit;
+    background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+blockquote {
+    border-color: #dee5e7;
+}
+
+.caret-white {
+    border-top-color: #fff;
+    border-top-color: rgba(255, 255, 255, 0.65);
+}
+
+a:hover .caret-white {
+    border-top-color: #fff;
+}
+
+.progress,
+.progress-bar {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.form-control {
+    border-color: #cfdadd;
+    border-radius: 2px;
+}
+
+.form-control,
+.form-control:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.form-control:focus {
+    border-color: #17abf6;
+    outline: 0;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, .25);
+
+}
+
+.nav-pills {
+    background: #f5f6f6;
+    border-radius: 6px 6px 0 0;
+}
+
+.nav-pills.no-radius > li > a {
+    border-radius: 0;
+}
+
+.nav-pills > li > a {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 13px;
+    border-radius: 6px 6px 0 0;
+    /*border-left: 1px solid rgba(238, 238, 238, .5);*/
+    /*border-right: 1px solid rgba(238, 238, 238, .5);*/
+}
+
+.nav-pills > li.active > a {
+    color: #17abf6 !important;
+    background-color: #fff;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    background-color: #fff;
+}
+
+.nav > li:hover > a {
+    /*background: #f7f8f8;*/
+    background-color: transparent;
+}
+
+.nav > li:not(.active):hover > a > span[class^="icon-"],
+.nav > li:not(.active):hover > a > span[class*=" icon-"] {
+    color: #4D4F6B;
+}
+
+.nav > li.active.statistics > a > span {
+    color: #00ace6 !important;
+}
+
+.nav > li.active.activity > a > span {
+    color: #4d94ff !important;
+}
+
+.nav > li.active.users > a > span {
+    color: #6666cc !important;
+}
+
+.nav > li.active.not-verified-users > a > span {
+    color: #ff4d94 !important;
+}
+
+.nav > li.active.gateways > a > span {
+    color: #FF9800 !important;
+}
+
+.nav > li.active.network > a > span {
+    color: #6666cc !important;
+}
+
+.nav > li.active.notify > a > span {
+    color: #ff4d4d !important;
+}
+
+.nav > li.active.sales > a > span {
+    color: #00cc7a !important;
+}
+
+.nav > li.active.calls > a > span {
+    color: #4d94ff !important;
+}
+
+.nav > li.active.stickers > a > span {
+    color: #ff4d94 !important;
+}
+
+.nav > li.active.chat-bots > a > span {
+    color: #4d94ff !important;
+}
+
+.nav > li.active.calling-cards > a > span {
+    color: #6666cc !important;
+}
+
+.nav > li.active.third-party-providers > a > span {
+    color: #88be60 !important;
+}
+
+.nav > li.active.providers > a > span {
+    color: #88be60 !important;
+}
+
+.nav > li.active.billing > a > span {
+    color: #4d94ff !important;
+}
+
+.nav > li.active.call-package > a > span {
+    color: #00cc7a !important;
+}
+
+.nav > li.active.settings > a > span {
+    color: #FF9800 !important;
+}
+
+.nav-pills > li + li {
+    margin-left: 0;
+}

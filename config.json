@@ -1,0 +1,427 @@
+{
+  "zangiServers": {
+    "zb": {
+      "prefix": "zb",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "network_base_url": "https://zangi.com",
+      "name": "Zangi business panel"
+    },
+    "zz": {
+      "prefix": "zz",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "network_base_url": "https://zangi.com",
+      "name": "Zangi"
+    },
+    "oh": {
+      "prefix": "oh",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "https://api-console.ohho.mobi",
+      "network_base_url": "https://zangi.com",
+      "name": "ohho"
+    },
+    "ss": {
+      "prefix": "ss",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.ss.zangi.io",
+      "network_base_url": "https://zangi.com",
+      "name": "Synapse"
+    },
+    "zw": {
+      "prefix": "zw",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://zbw.api-console.zangi.io",
+      "network_base_url": "https://zangi.com",
+      "name": "Demo"
+    },
+    "su": {
+      "prefix": "su",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "Sim USA"
+    },
+    "ig": {
+      "prefix": "ig",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "https://api-console.zangi.com",
+      "name": "iGospel"
+    },
+    "al": {
+      "prefix": "al",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "Allapp"
+    },
+    "tf": {
+      "prefix": "tf",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "Talkify"
+    },
+    "bg": {
+      "prefix": "bg",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.banglatalk.com",
+      "name": "Banglatalk"
+    },
+    "bd": {
+      "prefix": "bd",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "BTS Digital"
+    },
+    "hv": {
+      "prefix": "hv",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "Holvox"
+    },
+    "sy": {
+      "prefix": "sy",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "SY"
+    },
+    "ac": {
+      "prefix": "ac",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "Atom Call"
+    },
+    "bt": {
+      "prefix": "bt",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "BingoTel"
+    },
+    "ma": {
+      "prefix": "ma",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "Mondex A"
+    },
+    "hs": {
+      "prefix": "hs",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "Hello SIM"
+    },
+    "kt": {
+      "prefix": "kt",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "Knect Telecom"
+    },
+    "et": {
+      "prefix": "et",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "Encryptunnel"
+    },
+    "la": {
+      "prefix": "la",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "Blue Line Aviation"
+    },
+    "st": {
+      "prefix": "st",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "SoftTalk"
+    },
+    "sk": {
+      "prefix": "sk",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "https://api-console.zangi.com",
+      "name": "STK"
+    },
+    "us": {
+      "prefix": "us",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "UroScribe"
+    },
+    "pg": {
+      "prefix": "pg",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "Pigeon"
+    },
+    "dc": {
+      "prefix": "dc",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "DefComm"
+    },
+    "np": {
+      "prefix": "np",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "NIGPOL"
+    },
+    "xc": {
+      "prefix": "xc",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "Xchange"
+    },
+    "uc": {
+      "prefix": "uc",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "Upco"
+    },
+    "sa": {
+      "prefix": "sa",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "https://api-console.zangi.com",
+      "name": "SBATalk"
+    },
+    "fl": {
+      "prefix": "fl",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "Family"
+    },
+    "bs": {
+      "prefix": "bs",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "BTS Telecom"
+    },
+    "sc": {
+      "prefix": "sc",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.zangi.com",
+      "name": "SOCIOS"
+    },
+    "ap": {
+      "prefix": "ap",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "http://localhost:3001",
+      "name": "AB Phone"
+    },
+    "vr": {
+      "prefix": "vr",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "https://api-console.zangi.com",
+      "name": "VRApp"
+    },
+    "pc": {
+      "prefix": "pc",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "https://api-console.zangi.com",
+      "name": "PrimeOne Chat"
+    },
+    "dm": {
+      "prefix": "dm",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "https://api-console.zangi.com",
+      "name": "Demo"
+    },
+    "tc": {
+      "prefix": "tc",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "https://api-console.zangi.com",
+      "name": "Tsel"
+    },
+    "gc": {
+      "prefix": "gc",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "https://api-console.globalcredit.am",
+      "name": "GlobalCredit"
+    },
+    "rc": {
+      "prefix": "rc",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "https://api-console.zangi.com",
+      "name": "ask Rouchetta"
+    },
+    "de": {
+      "prefix": "de",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "https://api-console.zangi.com",
+      "name": "DemoApp"
+    },
+    "nb": {
+      "prefix": "nb",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "https://api-console.zangi.com",
+      "name": "NBC Talk"
+    },
+    "ob": {
+      "prefix": "ob",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "https://api-console.obbip.org",
+      "name": "Obbit"
+    },
+    "qc": {
+      "prefix": "qc",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "https://api-console.qcom.ch",
+      "name": "QipCool"
+    },
+    "in": {
+      "prefix": "in",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "https://api-console.incore.am",
+      "name": "Incore"
+    },
+    "cv": {
+      "prefix": "cv",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "https://api-console.zangi.com",
+      "network_base_url": "https://zangi.com",
+      "name": "Caldor Video Triage"
+    }
+  },
+  "otherServers": {
+    "el": {
+      "prefix": "el",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "https://api-console.elloapp.org",
+      "name": "Ello"
+    },
+    "pl": {
+      "prefix": "pl",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.falconstream.live",
+      "name": "Police.am"
+    },
+    "sn": {
+      "prefix": "sn",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.upsi.am",
+      "name": "NSS"
+    },
+    "jb": {
+      "prefix": "jb",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.juuby.com",
+      "name": "Juuby"
+    },
+    "jt": {
+      "prefix": "jt",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.jalatalk.com",
+      "name": "JalaTalk"
+    },
+    "dt": {
+      "prefix": "dt",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "http://94.75.245.4:3001",
+      "name": "Digitain"
+    },
+    "oo": {
+      "prefix": "oo",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "https://api-console.aloo.chat",
+      "network_base_url": "https://networks.aloo.chat",
+      "name": "Aloo"
+    },
+    "rg": {
+      "prefix": "rg",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "http://api-console.ringonapp.com",
+      "name": "RingOn"
+    },
+    "sa": {
+      "prefix": "sa",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "http://185.230.204.16:3001",
+      "name": "Sola"
+    },
+    "sl": {
+      "prefix": "sl",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "http://109.75.44.192:3001",
+      "name": "Soft Line"
+    },
+    "sal": {
+      "prefix": "sa",
+      "app_name": "Business Panel",
+      "re_captcha": "6LfD3VwUAAAAAODTxs9lTTGbcco5PVDzEp2gbU-y",
+      "api_url": "http://37.187.89.136:3001",
+      "name": "Salem"
+    },
+    "an": {
+      "prefix": "an",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "https://api-console.3anet.ua",
+      "name": "3anet"
+    },
+    "pc": {
+      "prefix": "pc",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "https://api-console.philchat.philcoin.io",
+      "name": "Phillchat"
+    },
+    "li": {
+      "prefix": "li",
+      "app_name": "Business Panel",
+      "re_captcha": "6LenGsUUAAAAAFOB8nAtuwdQK__GlrdvQ3WZdwu0",
+      "api_url": "https://api-console.link3.net",
+      "name": "Phillchat"
+    }
+  }
+}
+

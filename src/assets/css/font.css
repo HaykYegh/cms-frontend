@@ -1,0 +1,345 @@
+/*!*Google Fonts*!*/
+
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700');
+
+/*Icon Fonts*/
+
+@font-face {
+    /*font-family: 'icomoon';*/
+    /*src: url('../fonts/icomoon.eot?f6rzdp');*/
+    /*src: url('../fonts/icomoon.eot?f6rzdp#iefix') format('embedded-opentype'),*/
+    /*url('../fonts/icomoon.ttf?f6rzdp') format('truetype'),*/
+    /*url('../fonts/icomoon.woff?f6rzdp') format('woff'),*/
+    /*url('../fonts/icomoon.svg?f6rzdp#icomoon') format('svg');*/
+    /*font-weight: normal;*/
+    /*font-style: normal;*/
+    font-family: 'icomoon';
+    src: url('../fonts/icomoon.eot?vt9dln');
+    src: url('../fonts/icomoon.eot?vt9dln#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?vt9dln') format('truetype'),
+    url('../fonts/icomoon.woff?vt9dln') format('woff'),
+    url('../fonts/icomoon.svg?vt9dln#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon', serif !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    font-size: 20px;
+    margin-right: 12px;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-box"], [class*=" icon-box"] {
+    margin-right: 0;
+    font-size: 52px;
+    padding: 10px 15px 10px 10px;
+}
+
+/*-------Box block icons start-------*/
+
+.icon-calendar:before {
+    content: "\e92d";
+}
+
+.icon-fail, .icon-success {
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.icon-more {
+    margin-right: 0;
+    padding: 3px 8px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+}
+
+.icon-more:hover {
+    border: 1px solid #e9eaed;
+    background-color: #FFFFFF;
+    transition: all 250ms;
+}
+
+.icon-fail:before {
+    content: "\e92f";
+}
+
+.icon-success:before {
+    content: "\e930";
+}
+
+.icon-more:before {
+    content: "\e92c";
+}
+
+.icon-close {
+    font-size: 14px;
+}
+
+.icon-close:before {
+    content: "\e928";
+}
+
+.icon-plus:before {
+    content: "\e929";
+}
+
+.icon-reload {
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.icon-reload:before {
+    content: "\e92a";
+}
+
+.icon-search:before {
+    content: "\e92b";
+}
+
+.icon-avatar {
+    margin-right: 0;
+    font-size: 24px;
+}
+
+.icon-avatar:before {
+    content: "\e90e";
+    color: #a1a3b1;
+}
+
+.icon-box-android:before {
+    content: "\e90f";
+    color: #4d4f6b;
+}
+
+.icon-box-apple:before {
+    content: "\e910";
+    color: #4d4f6b;
+}
+
+.icon-box-messages:before {
+    content: "\e911";
+}
+
+.icon-v4a:before {
+    content: "\e912";
+    color: #4d4f6b;
+}
+
+.icon-box-foreground_users:before {
+    content: "\e913";
+    color: #4d4f6b;
+}
+
+.icon-box-live_calls-x:before {
+    content: "\e914";
+    color: #4d4f6b;
+}
+
+.icon-box-live_out_calls-x:before {
+    content: "\e915";
+    color: #5bc7d5;
+}
+
+.icon-billing-1:before {
+    content: "\e92e";
+}
+
+.icon-box-spendings:before {
+    content: "\e916";
+    color: #4d4f6b;
+}
+
+.icon-box-sales:before {
+    content: "\e917";
+    color: #4d4f6b;
+}
+
+.icon-box-live_calls:before {
+    content: "\e918";
+    color: #00a7ff;
+}
+
+.icon-v11a:before {
+    content: "\e919";
+    color: #4d4f6b;
+}
+
+.icon-box-calls_duration:before {
+    content: "\e91a";
+    color: #4d4f6b;
+}
+
+.icon-box-registered_user:before {
+    content: "\e91b";
+}
+
+.icon-box-not_verified_users:before {
+    content: "\e91c";
+}
+
+.icon-box-online_users:before {
+    content: "\e91e";
+    color: #06bf8c;
+}
+
+.icon-box-total_users:before {
+    content: "\e91f";
+    color: #0e7fe0;
+}
+
+.icon-box-calling_card:before {
+    content: "\e920";
+    color: #4d4f6b;
+}
+
+.icon-box-admin:before {
+    content: "\e921";
+    color: #4d4f6b;
+}
+
+.icon-box-paypal:before {
+    content: "\e922";
+    color: #4d4f6b;
+}
+
+.icon-box-transfer:before {
+    content: "\e923";
+    color: #4d4f6b;
+}
+
+.icon-box-chargingcard:before {
+    content: "\e924";
+    color: #4d4f6b;
+}
+
+.icon-box-back_termination-x:before {
+    content: "\e925";
+    color: #4d4f6b;
+}
+
+.icon-box-back_termination:before {
+    content: "\e926";
+    color: #38c9dc;
+}
+
+.icon-box-stripe:before {
+    content: "\e927";
+    color: #4d4f6b;
+}
+
+/*-------Box block icons end-------*/
+
+/*-------Left menu icons start-------*/
+
+.icon-stickers:before {
+    content: "\e909";
+}
+
+.icon-chat-bots:before {
+    content: "\e90a";
+}
+
+.icon-calling-cards:before {
+    content: "\e90b";
+}
+
+.icon-third-party-providers:before {
+    content: "\e90c";
+}
+
+.icon-providers:before {
+    content: "\e90c";
+}
+
+.icon-settings:before {
+    content: "\e90d";
+}
+
+.icon-billing:before {
+    content: "\e92e";
+}
+
+.icon-statistics:before {
+    content: "\e900";
+}
+
+.icon-activity:before {
+    content: "\e901";
+}
+
+.icon-users:before {
+    content: "\e902";
+}
+
+.icon-not-verified-users:before {
+    content: "\e903";
+}
+
+.icon-gateways:before {
+    content: "\e904";
+}
+
+.icon-network:before {
+    content: "\e905";
+}
+
+.icon-channel:before {
+    content: "\e905";
+}
+
+.icon-notify:before {
+    content: "\e906";
+}
+
+.icon-sales:before {
+    content: "\e907";
+}
+
+.icon-calls:before {
+    content: "\e908";
+}
+
+.icon-call-package:before {
+    content: "\e931";
+}
+
+.icon-call-package .path1:before {
+    content: "\e932";
+    color: rgb(0, 0, 0);
+}
+
+.icon-call-package .path2:before {
+    content: "\e933";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.icon-call-package .path3:before {
+    content: "\e934";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.icon-call-package .path4:before {
+    content: "\e935";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.icon-call-package .path5:before {
+    content: "\e936";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+/*-------Left menu icons end-------*/
